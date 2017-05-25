@@ -68,8 +68,7 @@ async def main(loop, show):
             else:
                 print("Error: url is not available, program is now exiting.")
 
-if __name__ == '__main__':
-
+def cli():
     if len(sys.argv) < 2:
         print_help()
         sys.exit(0)
@@ -77,3 +76,6 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main(loop, show))
     loop.close()
+
+if __name__ == '__main__':
+    cli()

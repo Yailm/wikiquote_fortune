@@ -8,8 +8,16 @@ setup(
 
     install_requires=['aiohttp', 'lxml'],
 
+    author='Yailm',
     author_email='fiotose@gmail.com',
+    url='https://github.com/Yailm/wikiquote_fortune',
     description='Generate fortune cookie from wikiquote',
     license='MIT',
-    keyword='wikiquote fortune',
+
+    entry_points={
+        "console_scripts": [
+            "wikiquote_fortune = wikiquote_fortune:cli"
+        ]
+    },
+    keywords='wikiquote fortune',
 )
