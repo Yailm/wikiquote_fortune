@@ -23,8 +23,9 @@ def generate_fortune(source):
     tree = lxml.html.fromstring(source)
     show_name = tree.get_element_by_id('firstHeading').text_content()
     file_name = '{}'.format(show_name.lower())
-    elements = tree.get_element_by_id(
-        'mw-content-text').xpath('ul/li|dl|div[@id="toc"]')
+
+    elements = tree.xpath(
+        '//div[contains(@class,"mw-")]/ul/li|//div/dl|div[@id="toc"]')
     l, r = 0, None
     for i in range(len(elements)):
         if elements[i].tag == 'div':
