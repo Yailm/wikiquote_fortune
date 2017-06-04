@@ -69,6 +69,7 @@ async def main(loop, show):
             else:
                 print("Error: url is not available, program is now exiting.")
 
+
 def cli():
     if len(sys.argv) < 2:
         print_help()

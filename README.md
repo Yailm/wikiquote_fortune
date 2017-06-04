@@ -1,5 +1,7 @@
 # wikiquote_fortune
 
+[![Build Status](https://travis-ci.org/Yailm/wikiquote_fortune.svg?branch=master)](https://travis-ci.org/Yailm/wikiquote_fortune)
+
 Retrieve quotes from wikiquote.org and generate fortune cookie
 inspired by the `python-wikiquote` and `wikiquote_fortune`
 
