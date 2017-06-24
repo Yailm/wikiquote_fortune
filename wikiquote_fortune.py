@@ -29,11 +29,13 @@ def bake_cookie(elements):
         elif baking:
             if e.tag == 'dl' and pretag == 'p':
                 cookies[-1] += "\n"+e.text_content().strip()
-            elif e.tag == 'li' and pretag == 'dl':
+            elif e.tag == 'li' and pretag == 'dl*':
                 break
             else:
                 cookies.append(e.text_content().strip())
-            pretag = e.tag
+            pretag = 'dl*' \
+                if pretag.startswith('dl') and e.tag == 'dl' else e.tag
+        print(pretag)
     return cookies
 
 
