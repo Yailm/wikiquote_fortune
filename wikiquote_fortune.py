@@ -19,23 +19,35 @@ def print_help():
     print("     -- program to generate fortune-mod cookie from wikiquote")
 
 
+def bake_cookie(elements):
+    cookies = []
+    pretag = ''
+    baking = 0
+    for e in elements:
+        if e.tag == 'h2':
+            baking = 1
+        elif baking:
+            if e.tag == 'dl' and pretag == 'p':
+                cookies[-1] += "\n"+e.text_content().strip()
+            elif e.tag == 'li' and pretag == 'dl':
+                break
+            else:
+                cookies.append(e.text_content().strip())
+            pretag = e.tag
+    return cookies
+
+
 def generate_fortune(source):
+
     tree = lxml.html.fromstring(source)
     show_name = tree.get_element_by_id('firstHeading').text_content()
     file_name = '{}'.format(show_name.lower())
 
-    elements = tree.xpath(
-        '//div[contains(@class,"mw-")]/ul/li|//div/dl|div[@id="toc"]')
-    l, r = 0, None
-    for i in range(len(elements)):
-        if elements[i].tag == 'div':
-            l = i+1
-        elif not r and elements[-i-1].tag == 'dl':
-            r = -i
+    ele_content = tree.xpath('//div[@class="mw-parser-output"]')[0]
+    elements = ele_content.xpath('ul/li|h2|dl|p')
 
-    text_list = list(map(lambda x: x.text_content().strip(), elements[l:r]))
     with open(file_name, 'w') as fo:
-        fo.write("\n%\n".join(text_list)+"\n%")
+        fo.write("\n%\n".join(bake_cookie(elements))+"\n%")
     os.execvp('strfile', ('strfile', file_name))
 
 
